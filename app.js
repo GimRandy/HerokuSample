@@ -1,10 +1,11 @@
 // app.js
-var http = require('http'); // 1
+var server = require("./models/server.js");
+var router = require("./routes/router.js");
+var requestHandlers = require("./handlers/requestHandlers");
 
-http.createServer(function (request, response) { // 2
-  response.statusCode = 200;
-  response.setHeader('Content-Type', 'text/plain');
-  response.end('Hello World\n');
-}).listen(3000); // 3
+var handle = {}
+handle["/"] = requestHandlers.start;
+handle["/start"] = requestHandlers.start;
+handle["/upload"] = requestHandlers.upload;
 
-console.log('Server running at http://127.0.0.1:3000/');
+server.start(router.route, handle);
